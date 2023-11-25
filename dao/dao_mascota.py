@@ -6,7 +6,7 @@ class MascotaDAO():
     #Constructor
     def __init__(self):
         try:
-            self.conn = conn.Conex("localhost", "root", "@X73y18z64", "vet2")
+            self.conn = conn.Conex("localhost", "root", "@X73y18z64", "vete2")
         except Exception as ex:
             print(ex)
     
