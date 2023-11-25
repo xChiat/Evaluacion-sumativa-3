@@ -81,7 +81,7 @@ class MascotaDAO():
         mensaje = ""
         try:
             cursor = c.getConex().cursor()
-            cursor.execute(sql, (mascota.getNombreMascota(),mascota.getTipoMascota(),mascota.getEdad(),cliente.get_rut(),))
+            cursor.execute(sql, (mascota.getNombreMascota(),mascota.getTipoMascota(),mascota.getEdad(),mascota.get_rut(),))
             c.getConex().commit()
             filas = cursor.rowcount
             if filas > 0:
@@ -101,7 +101,7 @@ class MascotaDAO():
         c = self.getConex()
         try:
             cursor = c.getConex().cursor()
-            cursor.execute(sql, (rut,))
+            cursor.execute(sql, (idmascota,))
             result = cursor.fetchone()
             if result:
                 return result[0]
