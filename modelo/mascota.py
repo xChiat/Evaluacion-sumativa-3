@@ -1,7 +1,7 @@
 from modelo.cliente import Cliente
 class Mascota:
     __listaMascota = []
-    def __init__(self,idMascota="",nombMascota="",edad="",tipoMascota="",cliente=Cliente()):
+    def __init__(self,idMascota=None,nombMascota="",edad=0,tipoMascota="",cliente=Cliente()):
        self.__idMascota = idMascota
        self.__nombMascota = nombMascota
        self.__edad = edad

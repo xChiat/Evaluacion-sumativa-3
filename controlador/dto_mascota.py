@@ -7,7 +7,14 @@ class MascotaDTO:
         lista = []
         if result is not None:
             for msc in result:
-                mascota = Mascota(idMascota = msc[0], tipoMascota = msc[1], nombMascota=msc[2], edad=msc[3])
+                type = ""
+                if msc[1]==1:
+                    type = "Perro"
+                    return type
+                elif msc[1]==2:
+                    type = "Gato"
+                    return type
+                mascota = Mascota(idMascota = msc[0], tipoMascota = type, nombMascota=msc[2], edad=msc[3])
                 lista.append(mascota)
         Mascota().prepareMascota(lista)
     
@@ -17,12 +24,12 @@ class MascotaDTO:
         self.prepareCliente()
         
     #Buscar todos los clientes
-    def listarClientes(self):
+    def listarMascotas(self):
         mascota = Mascota().getLista()
         return mascota
     
     #Busca un cargo en la lista de clase
-    def buscarCliente(self, idMascota):
+    def buscarMascota(self, idMascota):
         mascota = Mascota()
         result = mascota.buscarMascota(idMascota)
         if result is None:
@@ -31,22 +38,22 @@ class MascotaDTO:
             return result
 
     #Agregar cargos
-    def addCliente(self, idMascota,nombMascota,edad,tipoMascota):
+    def addMascota(self, idMascota,nombMascota,edad,tipoMascota):
         daoMasc = MascotaDAO()
-        resultado = daoMasc.addCliente(Mascota(idMascota=idMascota,nombMascota=nombMascota,edad=edad,tipoMascota=tipoMascota))
+        resultado = daoMasc.addMascota(Mascota(idMascota=idMascota,nombMascota=nombMascota,edad=edad,tipoMascota=tipoMascota))
         self.syncListaMascota()
         return resultado
     
     #Eliminar cargos
-    def delCliente(self, idMascota):
+    def delMascota(self, idMascota):
         daoMasc = MascotaDAO()
-        resultado = daoMasc.delCliente(Mascota(idMascota=idMascota))
+        resultado = daoMasc.delMascota(Mascota(idMascota=idMascota))
         self.syncListaMascota()
         return resultado
     
     #Modificar cargos
-    def updateCliente(self, idMascota,nombMascota,edad,tipoMascota):
+    def updateMascota(self, idMascota,nombMascota,edad,tipoMascota):
         daoMasc = MascotaDAO()
-        resultado = daoMasc.updateCliente(Mascota(idMascota=idMascota,nombMascota=nombMascota,edad=edad,tipoMascota=tipoMascota))
+        resultado = daoMasc.updateMascota(Mascota(idMascota=idMascota,nombMascota=nombMascota,edad=edad,tipoMascota=tipoMascota))
         self.syncListaMascota()
         return resultado
