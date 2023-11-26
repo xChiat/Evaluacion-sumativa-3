@@ -154,47 +154,40 @@ def validateAddMascota():
             print(result)
 
 #Validacion para modificar Cargos
-def validateUpdateCargo():
+def validateUpdateCliente():
     print("\n--------------------")
-    print("Modificar Cargo.")
+    print("Modificar Cliente.")
     print("--------------------\n")
-    idCargo = validaInt("Cargo")
-    val = validateFindCargo(idCargo)
+    run = validaStr("el RUT")
+    val = validateBuscarCliente(run)
     if val is None:
         return print("El Cargo no existe, no puedes modificarlo.")
     else:
-        descCar = input("Ingrese Nueva Descripcion del cargo o Presione ENTER para cancelar: ")
-        if len(descCar) == 0:
-            return print("Operación Cancelada.")
-        elif len(descCar) < 3:
-            print("Campo incorrecto, debes ingresar al menos 3 valores.")
-            return validateUpdateCargo()
-        else:
-            print(CargoDTO().updateCargo(idCargo, descCar))
-
-def validateUpdateComuna():
+        print("Pulse enter si no desea modificar algun campo.")
+        nombre = input("Ingrese el nuevo Nombre: ")
+        apellido = input("Ingrese el nuevo Apellido: ")
+        telefono = input("Ingrese el nuevo telefono: ")
+        correo = input("Ingrese el nuevo Correo: ")
+        if not nombre:
+            return None
+            
+def validateUpdateMascota():
     print("\n--------------------")
-    print("Modificar Comuna.")
+    print("Modificar Mascota.")
     print("--------------------\n")
-    idComuna = validaInt("Comuna")
-    val = validateFindComuna(idComuna)
+    idMascota = validaInt("el id de la mascota")
+    val = validateBuscarMascota(idMascota)
     if val is None:
-        return print("La Comuna no existe, no puedes modificarla.")
+        return print("La Mascota no existe, no puedes modificarla.")
     else:
-        descCom = input("Ingrese Nueva Descripcion de la Comuna o Presione ENTER para cancelar: ")
-        if len(descCom) == 0:
-            return print("Operación Cancelada.")
-        elif len(descCom) < 3:
-            print("Campo incorrecto, debes ingresar al menos 3 valores.")
-            return validateUpdateComuna()
-        else:
-            print(ComunaDTO().updateComuna(idComuna, descCom))
+        #rellenar despues
+        pass
 
 #validador de contraseña de ADM
 def validarLogin():
-    mail = input("Ingrese correo (xxxx@xxxx): ")
-    password = input("Ingrese contraseña: ")
-    resultado = EmpleadoDTO().validarLogin(mail, password)
+    run = input("Ingrese su RUT: ")
+    password = input("Ingrese su contraseña: ")
+    resultado = RecepcionistaDTO().validarLogin(run, password)
     return resultado
 
 #validador de opciones para los menus
@@ -248,21 +241,21 @@ def inicial():
     cargaInicial()
     while True:
         menu()
-        opc = validaOpc(4)
+        opc = validaOpc(5)
         if opc == 1:
-            print("Menu en construcción. Lamentamos las molestias.")
+            print("Menu en construcción. Lamentamos las molestias D:")
         elif opc == 2:
             while True:
                 menuCargo()
                 opc = validaOpc(5)
                 if opc == 1:
-                    validateAddCargo()
+                    validateAddCliente()
                 elif opc == 2:
-                    validateUpdateCargo()
+                    validateUpdateCliente()
                 elif opc == 3:
-                    validateDelCargo()
+                    validateDelCliente()
                 elif opc == 4:
-                    validateFindAllCargos()
+                    validateFindAllClientes()
                 else:
                     break    
         elif opc == 3:
@@ -270,16 +263,18 @@ def inicial():
                     menuComuna()
                     opc = validaOpc(5)
                     if opc == 1:
-                        validateAddComuna()
+                        validateAddMascota()
                     elif opc == 2:
                         #validateFindComuna()
-                        validateUpdateComuna()
+                        validateUpdateMascota()
                     elif opc == 3:
-                        validateDelComuna()
+                        validateDelMascota()
                     elif opc == 4:
-                        validateFindAllComunas()
+                        validateFindAllMascotas()
                     else:
-                        break  
+                        break
+        elif opc == 4:
+            print("Menu en construccion. Lamentamos las molestias D:")      
         else:
             print("Programa Finalizado.")
             break

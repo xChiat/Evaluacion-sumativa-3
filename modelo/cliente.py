@@ -32,17 +32,20 @@ class Cliente(Usuario):
         return super().getApellido()
     def getLista(self):
         return self.__listarClientes
+    
 #Precarga
     def prepareCliente(self, listDB):
             for cli in listDB:
                 self.__listarCliente.append(cli)
+                
 #Encontrar en lista
-    def buscarCliente(self, rut):
+    def buscarCliente(self, run):
         cliente = self.getLista()
         for cli in cliente:
-            if super().getRut() == rut:
+            if super().getRut() == run:
                 return cli
         return None
+    
 #Limpiar lista
     def clearLista(self):
         self.__listarCliente.clear()

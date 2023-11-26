@@ -34,19 +34,19 @@ class ClienteDTO:
     def addCliente(self, run, nombre, apellido, telefono, correo):
         daoCli = ClienteDAO()
         resultado = daoCli.addCliente(Cliente(run=run, nombre=nombre, apellido=apellido, telefono=telefono, correo=correo))
-        self.syncListaCargo()
+        self.syncListaCliente()
         return resultado
     
     #Eliminar cargos
     def delCliente(self, run):
         daoCli = ClienteDAO()
         resultado = daoCli.delCliente(Cliente(run=run))
-        self.syncListaCargo()
+        self.syncListaCliente()
         return resultado
     
     #Modificar cargos
     def updateCliente(self, run, nombre, apellido, telefono, correo):
         daoCli = ClienteDAO()
         resultado = daoCli.updateCliente(Cliente(run=run, nombre=nombre, apellido=apellido, telefono=telefono, correo=correo))
-        self.syncListaCargo()
+        self.syncListaCliente()
         return resultado
