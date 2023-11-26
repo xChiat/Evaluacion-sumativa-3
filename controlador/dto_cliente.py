@@ -47,7 +47,17 @@ class ClienteDTO:
     
     #Modificar cargos
     def updateCliente(self, run, nombre, apellido, telefono, correo):
+        cliente = self.buscarCliente(run)
+        if cliente is None:
+            return "El Cliente no existe, no puedes modificarlo."
         daoCli = ClienteDAO()
-        resultado = daoCli.updateCliente(Cliente(run=run, nombre=nombre, apellido=apellido, telefono=telefono, correo=correo))
-        self.syncListaCliente()
+        if nombre != '':
+            cliente.setNombre(nombre)
+        if apellido != '':
+            cliente.setApellido(apellido)
+        if telefono != '':
+            cliente.setTelefono(telefono)
+        if correo != '':
+            cliente.setCorreo(correo)
+        resultado = daoCli.updateCliente(cliente)
         return resultado

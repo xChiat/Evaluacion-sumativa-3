@@ -38,11 +38,11 @@ class MascotaDTO:
             return result
 
     #Agregar cargos
-    def addMascota(self, idMascota,nombMascota,edad,tipoMascota):
-        daoMasc = MascotaDAO()
-        resultado = daoMasc.addMascota(Mascota(idMascota=idMascota,nombMascota=nombMascota,edad=edad,tipoMascota=tipoMascota))
-        self.syncListaMascota()
-        return resultado
+    def addMascota(self, idMascota, nombre, edad, tipo, cliente):
+        daoMascota = MascotaDAO()
+        # Agregar la mascota a la base de datos y obtener el resultado
+        result = daoMascota.addMascota(Mascota(idMascota=idMascota, nombre=nombre, edad=edad, tipoMascota=tipo, cliente=cliente))
+        return result
     
     #Eliminar cargos
     def delMascota(self, idMascota):

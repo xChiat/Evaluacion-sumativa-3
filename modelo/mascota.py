@@ -1,17 +1,17 @@
 from modelo.cliente import Cliente
 class Mascota:
     __listaMascota = []
-    def __init__(self,idMascota=None,nombMascota="",edad=0,tipoMascota="",cliente=Cliente()):
+    def __init__(self,idMascota=None,nombre="",edad=0,tipoMascota="",cliente=""):
        self.__idMascota = idMascota
-       self.__nombMascota = nombMascota
+       self.__nombre = nombre
        self.__edad = edad
        self.__tipoMascota = tipoMascota
        self.__cliente = cliente
 #Setters
     def setIdMascota(self,idMascota):
         self.__idMascota = idMascota
-    def setNombMascota(self,nombMascota):
-        self.__nombMascota = nombMascota
+    def setNombMascota(self,nombre):
+        self.__nombre = nombre
     def setEdad(self,edad):
         self.__edad = edad
     def setTipoMascota(self,tipoMascota):
@@ -20,7 +20,7 @@ class Mascota:
     def getIdMascota(self):
         return self.__idMascota
     def getNombMascota(self):
-        return self.__nombMascota
+        return self.__nombre
     def getEdad(self):
         return self.__edad
     def getTipoMascota(self):

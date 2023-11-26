@@ -11,7 +11,7 @@ def cargaInicial():
 def validaInt(txt):
     while True:
         try:
-            opc = int(input(f"Ingresa el codigo de {txt}: "))
+            opc = int(input(f"Ingresa {txt}: "))
             return opc
         except:
             print("Error de Ingreso, solo puedes ingresar números.")
@@ -118,7 +118,7 @@ def validateAddCliente():
     print("--------------------\n")
     run = validaStr("un RUT")
     val = validateBuscarCliente(run)
-    if val:
+    if val is not None:
         return print("El RUT del Cliente ya existe, no puedes volver a registrarlo.")
     else:
         nombre = validaStr("Nombre del Cliente")
@@ -137,20 +137,28 @@ def validateAddMascota():
     print("\n--------------------")
     print("Agregar Mascota.")
     print("--------------------\n")
-    idMascota = validaInt("Comuna")
-    val = validateBuscarMascota(idMascota)
-    if val:
-        return print("El Codigo de Comuna ya existe, no puedes volver a registrarlo.")
+    # Pedir ID del cliente existente
+    run = validaStr("RUT del Cliente")
+    cliente_existente = validateBuscarCliente(run)
+
+    if cliente_existente is None:
+        return print("El Cliente no existe. Operación Cancelada.")
     else:
-        nombre = validaStr("Nombre del Cliente")
-        edad = validaInt("Apellido del Cliente")
-        tipo = validaStr("Correo del Cliente")
-        cliente = validaStr("RUT Cliente")
-    # Asegura que los campos no estén vacíos
-        if not nombre or not edad or not tipo or not cliente:
-            return print("Todos los campos son requeridos. Operación Cancelada.")
+        # Pedir detalles de la mascota
+        idMascota = validaInt("el id de la mascota")
+        val = validateBuscarMascota(idMascota)
+        if val is not None:
+            return print("La mascota ya existe, no puedes volver a agregarla")
         else:
-            result = ClienteDTO().addCliente(idMascota, nombre, edad, tipo, cliente)
+            nombre = validaStr("el Nombre de la Mascota")
+            edad = validaInt("Edad de la Mascota")
+            tipo = validaStr("Tipo de Mascota (Perro o Gato)")
+        # Asegura que los campos no estén vacíos
+            if not nombre or not edad or not tipo:
+                return print("Todos los campos son requeridos. Operación Cancelada.")
+
+        # Agregar la mascota al cliente existente
+            result = MascotaDTO().addMascota(idMascota, nombre, edad, tipo, run)
             print(result)
 
 #Validacion para modificar Cargos
@@ -161,15 +169,20 @@ def validateUpdateCliente():
     run = validaStr("el RUT")
     val = validateBuscarCliente(run)
     if val is None:
-        return print("El Cargo no existe, no puedes modificarlo.")
+        return print("El Cliente no existe, no puedes modificarlo.")
     else:
-        print("Pulse enter si no desea modificar algun campo.")
+        print("Pulse enter si no desea modificar algún campo.")
         nombre = input("Ingrese el nuevo Nombre: ")
         apellido = input("Ingrese el nuevo Apellido: ")
-        telefono = input("Ingrese el nuevo telefono: ")
+        telefono = input("Ingrese el nuevo teléfono: ")
         correo = input("Ingrese el nuevo Correo: ")
-        if not nombre:
-            return None
+
+        # Validar y realizar la actualización
+        if nombre or apellido or telefono or correo:
+            result = ClienteDTO().updateCliente(run, nombre, apellido, telefono, correo)
+            print(result)
+        else:
+            print("Ningún campo ingresado para modificar.")
             
 def validateUpdateMascota():
     print("\n--------------------")

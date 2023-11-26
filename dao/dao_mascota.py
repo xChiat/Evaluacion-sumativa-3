@@ -32,12 +32,23 @@ class MascotaDAO():
     
     #Agrega objeto a Cargo
     def addMascota(self,mascota):
-        sql = "insert into MASCOTA (IDMASCOTA, IDTIPO, NOMBREMASCOTA, EDADMASCOTA) values (%s,%s,%s,%s)"
+        cliente = "select IDCLIENTE from CLIENTE WHERE RUNCLIENTE = %s"
+        sql = "insert into MASCOTAS (IDMASCOTA, NOMBREMASCOTA, EDADMASCOTA, IDTIPO, IDCLIENTE) values (%s,%s,%s,%s,%s)"
         c = self.getConex()
+        cur = c.getConex().cursor()
+        cur.execute(cliente,(mascota.getCliente(),))
+        result = cur.fetchone()
         mensaje = ""
+        if result is not None:
+            cliente_id = result[0]  # Ajusta esto según la estructura real de tu resultado
+            tipo_id = 1 if mascota.getTipoMascota().lower() == "perro" else 2
+            # Resto del código...
+        else:
+            mensaje = "No se encontró el cliente en la base de datos."
+        
         try:
             cursor = c.getConex().cursor()
-            cursor.execute(sql, (mascota.getIdMascota(),mascota.getTipoMascota(),mascota.getNombreMascota(),mascota.getEdad(),))
+            cursor.execute(sql, (mascota.getIdMascota(),mascota.getNombMascota(),mascota.getEdad(),tipo_id,cliente_id))
             c.getConex().commit()
             filas = cursor.rowcount
             if filas > 0:
