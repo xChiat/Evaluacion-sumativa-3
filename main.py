@@ -3,11 +3,11 @@ from controlador.validations import inicial, validarLogin
 
 # login
 intentos = 1
-print("\n=== Minimarket Fenix ===\n")
+print("\n===  Veterinaria Patitas amadas ===\n")
 while intentos <= 3:
     try:
-        #result = validarLogin()
-        result = 1
+        result = validarLogin()
+        #result = 1
         if result is not None:
             print("-Acceso Permitido-")
             inicial()

@@ -7,6 +7,7 @@ class Mascota:
        self.__edad = edad
        self.__tipoMascota = tipoMascota
        self.__cliente = cliente
+       self.getListaMascota().append(self)
 #Setters
     def setIdMascota(self,idMascota):
         self.__idMascota = idMascota
@@ -27,35 +28,18 @@ class Mascota:
         return self.__tipoMascota
     def getCliente(self):
         return self.__cliente
-    def getListaMascota(self):
-        return self.__listaMascota
-#Precarga
-    def prepareMascota(self, listDB):
-            for msc in listDB:
-                self.__listarMascota.append(msc)
+    #@classmethod
+    def getListaMascota(cls):
+        return cls.__listaMascota
+    #@classmethod
+    def prepareMascota(cls, lista):
+        cls.listaMascotas = lista
 #Encontrar en lista
     def buscarMascota(self, idMascota):
-        mascota = self.getListaMascota()
-        for msc in mascota:
-            if self.getIdMascota() == idMascota:
+        for msc in self.getListaMascota():
+            if msc.getIdMascota() == idMascota:
                 return msc
         return None
-#Limpiar lista
+    #@classmethod
     def clearLista(self):
-        self.__listarMascota.clear()
-#Modificar lista
-    def modNomb(self,idMascota,nomb):
-        mascota = self.getListaMascota()
-        msc = self.buscarMascota(idMascota)
-        if nomb is not None:
-            mascota[msc+1] = nomb
-    def modEdad(self,idMascota,edad):
-        mascota = self.getListaMascota()
-        msc = self.buscarMascota(idMascota)
-        if edad is not None:
-            mascota[msc+2] = edad
-    def modTipoMascota(self,idMascota,nomb):
-        mascota = self.getListaMascota()
-        msc = self.buscarMascota(idMascota)
-        if nomb is not None:
-            mascota[msc+3] = nomb
+        self.__listaMascota.clear()

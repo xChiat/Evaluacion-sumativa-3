@@ -46,10 +46,10 @@ def validateFindAllMascotas():
     print("")
     result = MascotaDTO().listarMascotas()
     if len(result) > 0:
-        for com in result:
-            print(com)
+        for msc in result:
+            print(msc)
     else:
-        print("No hay Comunas Registradas.")
+        print("No hay Mascotas Registradas.")
 
 #Validación para listar un Cliente.
 def validateBuscarCliente(run):
@@ -94,7 +94,7 @@ def validateDelMascota():
     print("\n--------------------")
     print("Eliminar Mascota.")
     print("--------------------\n")
-    idMascota = validaInt("Comuna")
+    idMascota = validaInt(" el id de la Mascota")
     val = validateBuscarMascota(idMascota)
     if val is None:
         return print("La Mascota no existe, no se puede Eliminar.")
@@ -188,13 +188,24 @@ def validateUpdateMascota():
     print("\n--------------------")
     print("Modificar Mascota.")
     print("--------------------\n")
-    idMascota = validaInt("el id de la mascota")
+    idMascota = validaInt("el ID de la mascota")
     val = validateBuscarMascota(idMascota)
+
     if val is None:
-        return print("La Mascota no existe, no puedes modificarla.")
+        print("La mascota no existe, no se puede modificar.")
+        return
     else:
-        #rellenar despues
-        pass
+        print(f"\nModificando datos de la mascota con ID: {idMascota}")
+        print("Presiona Enter si no deseas modificar algún campo.")
+        nombre = input("Ingrese el nuevo Nombre de la Mascota: ")
+        edad = input("Ingrese la nueva Edad de la Mascota: ")
+        tipoMascota = input("Ingrese el nuevo Tipo de la Mascota (Perro o Gato): ")
+        # Validar y realizar la actualización
+        if nombre or edad or tipoMascota:
+            result = MascotaDTO().updateMascota(idMascota, nombre, edad, tipoMascota)
+            print(result)
+        else:
+            print("Ningún campo ingresado para modificar.")
 
 #validador de contraseña de ADM
 def validarLogin():

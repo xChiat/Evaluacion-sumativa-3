@@ -50,25 +50,4 @@ class Cliente(Usuario):
             if cli.getRun() == run:
                 return cli
         return None
-    
-#Modificar lista
-    def modNombre(self,run, nomb):
-        cliente = self.getLista()
-        cli = self.buscarCliente(run)
-        if nomb is not None:
-            cliente[cli+1] = nomb
-    def modApellido(self,run, apll):
-        cliente = self.getLista()
-        cli = self.buscarCliente(run)
-        if apll is not None:
-            cliente[cli+2] = apll
-    def modTelefono(self,run,tlf):
-        cliente = self.getLista()
-        cli = self.buscarCliente(run)
-        if tlf is not None:
-            cliente[cli+3] = tlf
-    def modCorreo(self,run,crr):
-        cliente = self.getLista()
-        cli = self.buscarCliente(run)
-        if crr is not None:
-            cliente[cli+4] = crr
+

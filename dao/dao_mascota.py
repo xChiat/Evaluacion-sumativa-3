@@ -65,7 +65,7 @@ class MascotaDAO():
     
     #Elimina objeto de Mascota
     def delMascota(self, mascota):
-        sql = "delete from MASCOTA where IDMASCOTA = %s"
+        sql = "delete from MASCOTAS where IDMASCOTA = %s"
         c = self.getConex()
         mensaje = ""
         try:
@@ -87,12 +87,13 @@ class MascotaDAO():
     
     #Modifica Objeto de Mascota
     def updateMascota(self, mascota):
-        sql = "update MASCOTA set NOMBREMASCOTA = %s, IDTIPO = %s, EDADMASCOTA = %s where IDMASCOTA = %s"
+        sql = "update MASCOTAS set NOMBREMASCOTA = %s, IDTIPO = %s, EDADMASCOTA = %s where IDMASCOTA = %s"
         c = self.getConex()
+        tipo_id = 1 if mascota.getTipoMascota().lower() == "perro" else 2
         mensaje = ""
         try:
             cursor = c.getConex().cursor()
-            cursor.execute(sql, (mascota.getNombreMascota(),mascota.getTipoMascota(),mascota.getEdad(),mascota.get_rut(),))
+            cursor.execute(sql, (mascota.getNombMascota(),tipo_id,mascota.getEdad(),mascota.getIdMascota(),))
             c.getConex().commit()
             filas = cursor.rowcount
             if filas > 0:
@@ -108,7 +109,7 @@ class MascotaDAO():
         return mensaje
     
     def findMascota(self, idmascota):
-        sql = "SELECT NOMBREMASCOTA, IDTIPO, EDADMASCOTA FROM MASCOTA WHERE IDMASCOTA = %s"
+        sql = "SELECT NOMBREMASCOTA, IDTIPO, EDADMASCOTA FROM MASCOTAS WHERE IDMASCOTA = %s"
         c = self.getConex()
         try:
             cursor = c.getConex().cursor()

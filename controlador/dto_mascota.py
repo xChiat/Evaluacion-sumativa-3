@@ -8,25 +8,25 @@ class MascotaDTO:
         if result is not None:
             for msc in result:
                 type = ""
-                if msc[1]==1:
+                if msc[1] == 1:
                     type = "Perro"
-                    return type
-                elif msc[1]==2:
+                elif msc[1] == 2:
                     type = "Gato"
-                    return type
-                mascota = Mascota(idMascota = msc[0], tipoMascota = type, nombMascota=msc[2], edad=msc[3])
+                mascota = Mascota(idMascota=msc[0], tipoMascota=type, nombre=msc[2], edad=msc[3])
                 lista.append(mascota)
         Mascota().prepareMascota(lista)
     
     #Limpia la lista Cargo y la carga nuevamente. 
     def syncListaMascota(self):
         Mascota().clearLista()
-        self.prepareCliente()
+        self.prepareMascota()
         
     #Buscar todos los clientes
     def listarMascotas(self):
-        mascota = Mascota().getLista()
-        return mascota
+        mascota = Mascota().getListaMascota()
+        for msc in mascota:
+            print(f"ID Mascota: {msc.getIdMascota()} Nombre: {msc.getNombMascota()} Edad: {msc.getEdad()} Tipo de Mascota: {msc.getTipoMascota()}")
+        
     
     #Busca un cargo en la lista de clase
     def buscarMascota(self, idMascota):
@@ -41,7 +41,8 @@ class MascotaDTO:
     def addMascota(self, idMascota, nombre, edad, tipo, cliente):
         daoMascota = MascotaDAO()
         # Agregar la mascota a la base de datos y obtener el resultado
-        result = daoMascota.addMascota(Mascota(idMascota=idMascota, nombre=nombre, edad=edad, tipoMascota=tipo, cliente=cliente))
+        result = daoMascota.addMascota(Mascota(idMascota=idMascota,nombre=nombre, edad=edad, tipoMascota=tipo, cliente=cliente))
+        self.syncListaMascota()
         return result
     
     #Eliminar cargos
@@ -53,7 +54,15 @@ class MascotaDTO:
     
     #Modificar cargos
     def updateMascota(self, idMascota,nombMascota,edad,tipoMascota):
-        daoMasc = MascotaDAO()
-        resultado = daoMasc.updateMascota(Mascota(idMascota=idMascota,nombMascota=nombMascota,edad=edad,tipoMascota=tipoMascota))
-        self.syncListaMascota()
+        mascota = self.buscarMascota(idMascota)
+        if mascota is None:
+            return "El Cliente no existe, no puedes modificarlo."
+        daoMascota = MascotaDAO()
+        if nombMascota != '':
+            mascota.setNombMascota(nombMascota)
+        if edad != '':
+            mascota.setEdad(edad)
+        if tipoMascota != '':
+            mascota.setTipoMascota(tipoMascota)
+        resultado = daoMascota.updateMascota(mascota)
         return resultado
