@@ -33,8 +33,8 @@ def validateFindAllClientes():
     print("")
     result = ClienteDTO().listarClientes()
     if len(result) > 0:
-        for car in result:
-            print(car)
+        for cli in result:
+            print(cli)
     else:
         print("No hay Clientes Registrados.")
 

@@ -6,8 +6,8 @@ intentos = 1
 print("\n=== Minimarket Fenix ===\n")
 while intentos <= 3:
     try:
-        result = validarLogin()
-        #result = 1
+        #result = validarLogin()
+        result = 1
         if result is not None:
             print("-Acceso Permitido-")
             inicial()

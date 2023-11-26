@@ -7,7 +7,7 @@ class ClienteDTO:
         lista = []
         if result is not None:
             for cli in result:
-                cliente = Cliente(run = cli[0], nombre = cli[1], apellido=[2], telefono=[3], correo=[4])
+                cliente = Cliente(run=cli[0], nombre=cli[1], apellido=cli[2], telefono=cli[3], correo=cli[4])
                 lista.append(cliente)
         Cliente().prepareCliente(lista)
     
@@ -33,7 +33,8 @@ class ClienteDTO:
     #Agregar cargos
     def addCliente(self, run, nombre, apellido, telefono, correo):
         daoCli = ClienteDAO()
-        resultado = daoCli.addCliente(Cliente(run=run, nombre=nombre, apellido=apellido, telefono=telefono, correo=correo))
+        cliente = Cliente(run=run, nombre=nombre, apellido=apellido, telefono=telefono, correo=correo)
+        resultado = daoCli.addCliente(cliente)
         self.syncListaCliente()
         return resultado
     
