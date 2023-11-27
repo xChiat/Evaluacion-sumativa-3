@@ -14,7 +14,7 @@ class RecepcionistaDAO():
     def getConex(self):
         return self.conn
 
-    def validarLogin(self, recep):
+    def autenticaRecepcionista(self, recep):
         sql = "select RUNRECEPCION from RECEPCIONISTA where RUNRECEPCION = %s and CLAVE = %s"
         resultado = None
         c = self.getConex()

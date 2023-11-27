@@ -29,8 +29,8 @@ class ClienteDAO():
         return result
     
     
-    #Agrega objeto a Cargo
-    def addCliente(self,cliente):
+    #Agrega objeto a Cliente
+    def agregarCliente(self,cliente):
         sql = "insert into CLIENTE (RUNCLIENTE, NOMBRECLIENTE, APELLIDOCLIENTE, TELEFONOCLIENTE, CORREOCLIENTE) values (%s,%s,%s,%s,%s)"
         c = self.getConex()
         mensaje = ""
@@ -52,7 +52,7 @@ class ClienteDAO():
         return mensaje
     
     #Elimina objeto de Cliente
-    def delCliente(self, cliente):
+    def eliminarCliente(self, cliente):
         sql = "delete from CLIENTE where RUNCLIENTE = %s"
         c = self.getConex()
         mensaje = ""
@@ -74,7 +74,7 @@ class ClienteDAO():
         return mensaje
     
     #Modifica Objeto de Cliente
-    def updateCliente(self, cliente):
+    def modificarCliente(self, cliente):
         sql = "update CLIENTE set NOMBRECLIENTE = %s, APELLIDOCLIENTE = %s, CORREOCLIENTE = %s, TELEFONOCLIENTE = %s where RUNCLIENTE = %s"
         c = self.getConex()
         mensaje = ""

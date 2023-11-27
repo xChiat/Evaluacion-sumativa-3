@@ -31,22 +31,22 @@ class ClienteDTO:
             return result
 
     #Agregar cliente
-    def addCliente(self, run, nombre, apellido, telefono, correo):
+    def agregarCliente(self, run, nombre, apellido, telefono, correo):
         daoCli = ClienteDAO()
         cliente = Cliente(run=run, nombre=nombre, apellido=apellido, telefono=telefono, correo=correo)
-        resultado = daoCli.addCliente(cliente)
+        resultado = daoCli.agregarCliente(cliente)
         self.syncListaCliente()
         return resultado
     
     #Eliminar cliente
-    def delCliente(self, run):
+    def eliminarCliente(self, run):
         daoCli = ClienteDAO()
-        resultado = daoCli.delCliente(Cliente(run=run))
+        resultado = daoCli.eliminarCliente(Cliente(run=run))
         self.syncListaCliente()
         return resultado
     
     #Modificar cliente
-    def updateCliente(self, run, nombre, apellido, telefono, correo):
+    def modificarCliente(self, run, nombre, apellido, telefono, correo):
         cliente = self.buscarCliente(run)
         if cliente is None:
             return "El Cliente no existe, no puedes modificarlo."
@@ -59,5 +59,5 @@ class ClienteDTO:
             cliente.setTelefono(telefono)
         if correo != '':
             cliente.setCorreo(correo)
-        resultado = daoCli.updateCliente(cliente)
+        resultado = daoCli.modificarCliente(cliente)
         return resultado

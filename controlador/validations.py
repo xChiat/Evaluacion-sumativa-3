@@ -44,7 +44,7 @@ def validateBuscarCliente(run):
     else:
         return result
     
-def validateDelCliente():
+def validateEliminarCliente():
     print("\n--------------------")
     print("Eliminar Cliente.")
     print("--------------------\n")
@@ -57,15 +57,15 @@ def validateDelCliente():
         confirm = input("Presiona Y/y para Confirmar o N/n para Cancelar:")
         confirm = confirm.upper()
         if confirm == "Y":
-            result = ClienteDTO().delCliente(run)
+            result = ClienteDTO().eliminarCliente(run)
             return print(result)
         elif confirm == "N":
             return print("Operación Cancelada.")
         else:
             print("Opción invalida, intentalo nuevamente.")
-            return validateDelCliente()    
+            return validateEliminarCliente()    
         
-def validateAddCliente():
+def validateAgregarCliente():
     print("\n--------------------")
     print("Agregar Cliente.")
     print("--------------------\n")
@@ -81,10 +81,10 @@ def validateAddCliente():
         if not nombre or not apellido or not correo or not telefono:
             return print("Todos los campos son requeridos. Operación Cancelada.")
         else:
-            result = ClienteDTO().addCliente(run, nombre, apellido, telefono, correo)
+            result = ClienteDTO().agregarCliente(run, nombre, apellido, telefono, correo)
             print(result)
 
-def validateUpdateCliente():
+def validateModificarCliente():
     print("\n--------------------")
     print("Modificar Cliente.")
     print("--------------------\n")
@@ -99,7 +99,7 @@ def validateUpdateCliente():
         telefono = input("Ingrese el nuevo teléfono: ")
         correo = input("Ingrese el nuevo Correo: ")
         if nombre or apellido or telefono or correo:
-            result = ClienteDTO().updateCliente(run, nombre, apellido, telefono, correo)
+            result = ClienteDTO().modificarCliente(run, nombre, apellido, telefono, correo)
             print(result)
         else:
             print("Ningún campo ingresado para modificar.")
@@ -194,10 +194,10 @@ def validateUpdateMascota():
 
 #-------- RECEPCIONISTA ---------
 
-def validarLogin():
+def autenticaRecepcionista():
     run = input("Ingrese su RUT: ")
     password = input("Ingrese su contraseña: ")
-    resultado = RecepcionistaDTO().validarLogin(run, password)
+    resultado = RecepcionistaDTO().autenticaRecepcionista(run, password)
     return resultado
 
 #-------- OPCIONES Y MENUS -------------
@@ -256,11 +256,11 @@ def inicial():
                 menuCliente()
                 opc = validaOpc(5)
                 if opc == 1:
-                    validateAddCliente()
+                    validateAgregarCliente()
                 elif opc == 2:
-                    validateUpdateCliente()
+                    validateModificarCliente()
                 elif opc == 3:
-                    validateDelCliente()
+                    validateEliminarCliente()
                 elif opc == 4:
                     validateFindAllClientes()
                 else:

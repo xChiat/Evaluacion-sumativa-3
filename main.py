@@ -1,4 +1,4 @@
-from controlador.validations import inicial, validarLogin
+from controlador.validations import inicial, autenticaRecepcionista
 
 
 # login
@@ -6,7 +6,7 @@ intentos = 1
 print("\n===  Veterinaria Patitas amadas ===\n")
 while intentos <= 3:
     try:
-        result = validarLogin()
+        result = autenticaRecepcionista()
         #result = 1
         if result is not None:
             print("-Acceso Permitido-")
