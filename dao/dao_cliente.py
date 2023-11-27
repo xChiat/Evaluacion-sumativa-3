@@ -94,21 +94,3 @@ class ClienteDAO():
             if c.getConex().is_connected():
                 c.closeConex()
         return mensaje
-    
-    def findCliente(self, rut):
-        sql = "SELECT NOMBRECLIENTE, APELLIDOCLIENTE, TELEFONOCLIENTE,CORREOCLIENTE FROM CLIENTE WHERE RUNCLIENTE = %s"
-        c = self.getConex()
-        try:
-            cursor = c.getConex().cursor()
-            cursor.execute(sql, (rut,))
-            result = cursor.fetchone()
-            if result:
-                return result[0]
-            else:
-                return None
-        except Exception as ex:
-            print(traceback.print_exc())
-            return None
-        finally:
-            if c.getConex().is_connected():
-                c.closeConex()

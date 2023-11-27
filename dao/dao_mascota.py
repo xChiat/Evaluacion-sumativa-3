@@ -107,23 +107,5 @@ class MascotaDAO():
             if c.getConex().is_connected():
                 c.closeConex()
         return mensaje
-    
-    def findMascota(self, idmascota):
-        sql = "SELECT NOMBREMASCOTA, IDTIPO, EDADMASCOTA FROM MASCOTAS WHERE IDMASCOTA = %s"
-        c = self.getConex()
-        try:
-            cursor = c.getConex().cursor()
-            cursor.execute(sql, (idmascota,))
-            result = cursor.fetchone()
-            if result:
-                return result[0]
-            else:
-                return None
-        except Exception as ex:
-            print(traceback.print_exc())
-            return None
-        finally:
-            if c.getConex().is_connected():
-                c.closeConex()
-    
+
   

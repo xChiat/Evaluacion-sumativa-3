@@ -11,7 +11,7 @@ class ClienteDTO:
                 lista.append(cliente)
         Cliente().prepareCliente(lista)
     
-    #Limpia la lista Cargo y la carga nuevamente. 
+    #Limpia la lista cliente y la carga nuevamente. 
     def syncListaCliente(self):
         Cliente().clearLista()
         self.prepareCliente()
@@ -21,7 +21,7 @@ class ClienteDTO:
         cliente = Cliente().getLista()
         return cliente
     
-    #Busca un cargo en la lista de clase
+    #Busca un cliente en la lista de clase
     def buscarCliente(self, run):
         cliente = Cliente()
         result = cliente.buscarCliente(run)
@@ -30,7 +30,7 @@ class ClienteDTO:
         else:
             return result
 
-    #Agregar cargos
+    #Agregar cliente
     def addCliente(self, run, nombre, apellido, telefono, correo):
         daoCli = ClienteDAO()
         cliente = Cliente(run=run, nombre=nombre, apellido=apellido, telefono=telefono, correo=correo)
@@ -38,14 +38,14 @@ class ClienteDTO:
         self.syncListaCliente()
         return resultado
     
-    #Eliminar cargos
+    #Eliminar cliente
     def delCliente(self, run):
         daoCli = ClienteDAO()
         resultado = daoCli.delCliente(Cliente(run=run))
         self.syncListaCliente()
         return resultado
     
-    #Modificar cargos
+    #Modificar cliente
     def updateCliente(self, run, nombre, apellido, telefono, correo):
         cliente = self.buscarCliente(run)
         if cliente is None:

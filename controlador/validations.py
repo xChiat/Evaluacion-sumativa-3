@@ -2,12 +2,12 @@ from controlador.dto_recep import RecepcionistaDTO
 from controlador.dto_cliente import ClienteDTO
 from controlador.dto_mascota import MascotaDTO
 
-#Funcion que carga las listas de clase desde la BD
+# CARGA DE DATOS
 def cargaInicial():
     ClienteDTO().prepareCliente()
     MascotaDTO().prepareMascota()
 
-#Validacion para el ingreso de valores tipo INT
+#-------- VALIDAR INT Y STR -----------
 def validaInt(txt):
     while True:
         try:
@@ -16,7 +16,6 @@ def validaInt(txt):
         except:
             print("Error de Ingreso, solo puedes ingresar números.")
             
-#Validacion para el ingreso de valores tipo STR
 def validaStr(txt):
     while True:
         valor = input(f"Ingrese {txt}: ").strip()
@@ -25,7 +24,7 @@ def validaStr(txt):
         else:
             print("Campo incorrecto, no debe estar vacío.")
 
-#Validacion para listar todos los cargos
+# ---------- CLIENTE ----------
 def validateFindAllClientes():
     print("\n--------------------")
     print("Listado de Clientes.")
@@ -37,37 +36,14 @@ def validateFindAllClientes():
             print(cli)
     else:
         print("No hay Clientes Registrados.")
-
-#Validacion para listar todos las comunas
-def validateFindAllMascotas():
-    print("\n--------------------")
-    print("Listado de Mascotas.")
-    print("--------------------\n")
-    print("")
-    result = MascotaDTO().listarMascotas()
-    if len(result) > 0:
-        for msc in result:
-            print(msc)
-    else:
-        print("No hay Mascotas Registradas.")
-
-#Validación para listar un Cliente.
+        
 def validateBuscarCliente(run):
     result = ClienteDTO().buscarCliente(run)
     if result is None:
         return None
     else:
         return result
-
-#Validación para listar una Mascota.
-def validateBuscarMascota(idMascota):
-    result = MascotaDTO().buscarMascota(idMascota)
-    if result is None:
-        return None
-    else:
-        return result 
-
-#Validacion para borrar Clientes
+    
 def validateDelCliente():
     print("\n--------------------")
     print("Eliminar Cliente.")
@@ -87,9 +63,68 @@ def validateDelCliente():
             return print("Operación Cancelada.")
         else:
             print("Opción invalida, intentalo nuevamente.")
-            return validateDelCliente()
+            return validateDelCliente()    
+        
+def validateAddCliente():
+    print("\n--------------------")
+    print("Agregar Cliente.")
+    print("--------------------\n")
+    run = validaStr("un RUT")
+    val = validateBuscarCliente(run)
+    if val is not None:
+        return print("El RUT del Cliente ya existe, no puedes volver a registrarlo.")
+    else:
+        nombre = validaStr("Nombre del Cliente")
+        apellido = validaStr("Apellido del Cliente")
+        correo = validaStr("Correo del Cliente")
+        telefono = validaStr("Teléfono del Cliente")
+        if not nombre or not apellido or not correo or not telefono:
+            return print("Todos los campos son requeridos. Operación Cancelada.")
+        else:
+            result = ClienteDTO().addCliente(run, nombre, apellido, telefono, correo)
+            print(result)
 
-#Validacion para borrar Mascotas
+def validateUpdateCliente():
+    print("\n--------------------")
+    print("Modificar Cliente.")
+    print("--------------------\n")
+    run = validaStr("el RUT")
+    val = validateBuscarCliente(run)
+    if val is None:
+        return print("El Cliente no existe, no puedes modificarlo.")
+    else:
+        print("Pulse enter si no desea modificar algún campo.")
+        nombre = input("Ingrese el nuevo Nombre: ")
+        apellido = input("Ingrese el nuevo Apellido: ")
+        telefono = input("Ingrese el nuevo teléfono: ")
+        correo = input("Ingrese el nuevo Correo: ")
+        if nombre or apellido or telefono or correo:
+            result = ClienteDTO().updateCliente(run, nombre, apellido, telefono, correo)
+            print(result)
+        else:
+            print("Ningún campo ingresado para modificar.")
+            
+            
+#---------- MASCOTAS -----------
+def validateFindAllMascotas():
+    print("\n--------------------")
+    print("Listado de Mascotas.")
+    print("--------------------\n")
+    print("")
+    result = MascotaDTO().listarMascotas()
+    if len(result) > 0:
+        for msc in result:
+            print(msc)
+    else:
+        print("No hay Mascotas Registradas.")
+
+def validateBuscarMascota(idMascota):
+    result = MascotaDTO().buscarMascota(idMascota)
+    if result is None:
+        return None
+    else:
+        return result 
+
 def validateDelMascota():
     print("\n--------------------")
     print("Eliminar Mascota.")
@@ -111,40 +146,16 @@ def validateDelMascota():
             print("Opción invalida, intentalo nuevamente.")
             return validateDelMascota()
 
-#Validacion para agregar Cargos
-def validateAddCliente():
-    print("\n--------------------")
-    print("Agregar Cliente.")
-    print("--------------------\n")
-    run = validaStr("un RUT")
-    val = validateBuscarCliente(run)
-    if val is not None:
-        return print("El RUT del Cliente ya existe, no puedes volver a registrarlo.")
-    else:
-        nombre = validaStr("Nombre del Cliente")
-        apellido = validaStr("Apellido del Cliente")
-        correo = validaStr("Correo del Cliente")
-        telefono = validaStr("Teléfono del Cliente")
-    # Asegura que los campos no estén vacíos
-        if not nombre or not apellido or not correo or not telefono:
-            return print("Todos los campos son requeridos. Operación Cancelada.")
-        else:
-            result = ClienteDTO().addCliente(run, nombre, apellido, telefono, correo)
-            print(result)
-
-#Validacion para agregar Comunas
 def validateAddMascota():
     print("\n--------------------")
     print("Agregar Mascota.")
     print("--------------------\n")
-    # Pedir ID del cliente existente
     run = validaStr("RUT del Cliente")
     cliente_existente = validateBuscarCliente(run)
 
     if cliente_existente is None:
         return print("El Cliente no existe. Operación Cancelada.")
     else:
-        # Pedir detalles de la mascota
         idMascota = validaInt("el id de la mascota")
         val = validateBuscarMascota(idMascota)
         if val is not None:
@@ -153,37 +164,12 @@ def validateAddMascota():
             nombre = validaStr("el Nombre de la Mascota")
             edad = validaInt("Edad de la Mascota")
             tipo = validaStr("Tipo de Mascota (Perro o Gato)")
-        # Asegura que los campos no estén vacíos
             if not nombre or not edad or not tipo:
                 return print("Todos los campos son requeridos. Operación Cancelada.")
 
-        # Agregar la mascota al cliente existente
             result = MascotaDTO().addMascota(idMascota, nombre, edad, tipo, run)
             print(result)
 
-#Validacion para modificar Cargos
-def validateUpdateCliente():
-    print("\n--------------------")
-    print("Modificar Cliente.")
-    print("--------------------\n")
-    run = validaStr("el RUT")
-    val = validateBuscarCliente(run)
-    if val is None:
-        return print("El Cliente no existe, no puedes modificarlo.")
-    else:
-        print("Pulse enter si no desea modificar algún campo.")
-        nombre = input("Ingrese el nuevo Nombre: ")
-        apellido = input("Ingrese el nuevo Apellido: ")
-        telefono = input("Ingrese el nuevo teléfono: ")
-        correo = input("Ingrese el nuevo Correo: ")
-
-        # Validar y realizar la actualización
-        if nombre or apellido or telefono or correo:
-            result = ClienteDTO().updateCliente(run, nombre, apellido, telefono, correo)
-            print(result)
-        else:
-            print("Ningún campo ingresado para modificar.")
-            
 def validateUpdateMascota():
     print("\n--------------------")
     print("Modificar Mascota.")
@@ -200,21 +186,21 @@ def validateUpdateMascota():
         nombre = input("Ingrese el nuevo Nombre de la Mascota: ")
         edad = input("Ingrese la nueva Edad de la Mascota: ")
         tipoMascota = input("Ingrese el nuevo Tipo de la Mascota (Perro o Gato): ")
-        # Validar y realizar la actualización
         if nombre or edad or tipoMascota:
             result = MascotaDTO().updateMascota(idMascota, nombre, edad, tipoMascota)
             print(result)
         else:
             print("Ningún campo ingresado para modificar.")
 
-#validador de contraseña de ADM
+#-------- RECEPCIONISTA ---------
+
 def validarLogin():
     run = input("Ingrese su RUT: ")
     password = input("Ingrese su contraseña: ")
     resultado = RecepcionistaDTO().validarLogin(run, password)
     return resultado
 
-#validador de opciones para los menus
+#-------- OPCIONES Y MENUS -------------
 def validaOpc(num):
     while True:
         try:
@@ -226,7 +212,6 @@ def validaOpc(num):
         except:
             print("Solo puedes ingresar números. Por favor reintente.")
 
-#Menu Principal
 def menu():
     print("\n=================================")
     print("======= CRUD FICHA MASCOTAS =======")
@@ -237,8 +222,7 @@ def menu():
     print("4. CRUD Ficha")
     print("5. Salir del Sistema")
 
-#Menu de Cargos
-def menuCargo():
+def menuCliente():
     print("\n*******************")
     print("*** CRUD Cliente ***")
     print("*******************\n")
@@ -248,8 +232,7 @@ def menuCargo():
     print("4. Mostrar todos los Clientes")
     print("5. Volver al Menu Principal")
 
-#Menu de comunas
-def menuComuna():
+def menuMascota():
     print("\n*******************")
     print("*** CRUD Mascotas ***")
     print("*******************\n")
@@ -260,7 +243,7 @@ def menuComuna():
     print("5. Volver al Menu Principal")
 
 
-#Loops de los menus
+#---------- INICIALISAR -----------
 def inicial():
     cargaInicial()
     while True:
@@ -270,7 +253,7 @@ def inicial():
             print("Menu en construcción. Lamentamos las molestias D:")
         elif opc == 2:
             while True:
-                menuCargo()
+                menuCliente()
                 opc = validaOpc(5)
                 if opc == 1:
                     validateAddCliente()
@@ -284,12 +267,11 @@ def inicial():
                     break    
         elif opc == 3:
             while True:
-                    menuComuna()
+                    menuMascota()
                     opc = validaOpc(5)
                     if opc == 1:
                         validateAddMascota()
                     elif opc == 2:
-                        #validateFindComuna()
                         validateUpdateMascota()
                     elif opc == 3:
                         validateDelMascota()

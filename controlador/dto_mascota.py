@@ -21,7 +21,7 @@ class MascotaDTO:
         Mascota().clearLista()
         self.prepareMascota()
         
-    #Buscar todos los clientes
+    #Buscar todos las Mascotas
     def listarMascotas(self):
         mascota = Mascota().getListaMascota()
         for msc in mascota:
@@ -37,22 +37,21 @@ class MascotaDTO:
         else:
             return result
 
-    #Agregar cargos
+    #Agregar Mascotas
     def addMascota(self, idMascota, nombre, edad, tipo, cliente):
         daoMascota = MascotaDAO()
-        # Agregar la mascota a la base de datos y obtener el resultado
         result = daoMascota.addMascota(Mascota(idMascota=idMascota,nombre=nombre, edad=edad, tipoMascota=tipo, cliente=cliente))
         self.syncListaMascota()
         return result
     
-    #Eliminar cargos
+    #Eliminar Mascotas
     def delMascota(self, idMascota):
         daoMasc = MascotaDAO()
         resultado = daoMasc.delMascota(Mascota(idMascota=idMascota))
         self.syncListaMascota()
         return resultado
     
-    #Modificar cargos
+    #Modificar Mascotas
     def updateMascota(self, idMascota,nombMascota,edad,tipoMascota):
         mascota = self.buscarMascota(idMascota)
         if mascota is None:
@@ -66,3 +65,4 @@ class MascotaDTO:
             mascota.setTipoMascota(tipoMascota)
         resultado = daoMascota.updateMascota(mascota)
         return resultado
+    
