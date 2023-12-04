@@ -186,11 +186,16 @@ def validateUpdateMascota():
         nombre = input("Ingrese el nuevo Nombre de la Mascota: ")
         edad = input("Ingrese la nueva Edad de la Mascota: ")
         tipoMascota = input("Ingrese el nuevo Tipo de la Mascota (Perro o Gato): ")
-        if nombre or edad or tipoMascota:
-            result = MascotaDTO().updateMascota(idMascota, nombre, edad, tipoMascota)
-            print(result)
+        run = input("Ingrese el RUN del nuevo dueño: ")
+        cliente_existente = validateBuscarCliente(run)
+        if cliente_existente is not None:
+            if nombre or edad or tipoMascota or run:
+                result = MascotaDTO().updateMascota(idMascota, nombre, edad, tipoMascota, run)
+                print(result)
+            else:
+                print("Ningún campo ingresado para modificar.")
         else:
-            print("Ningún campo ingresado para modificar.")
+            print("El cliente no existe por lo tanto no puede ser el nuevo dueño.")
 
 #-------- RECEPCIONISTA ---------
 

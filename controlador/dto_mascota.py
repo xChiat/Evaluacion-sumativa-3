@@ -45,7 +45,7 @@ class MascotaDTO:
         self.syncListaMascota()
         return resultado
 
-    def updateMascota(self, idMascota,nombMascota,edad,tipoMascota):
+    def updateMascota(self, idMascota,nombMascota,edad,tipoMascota,rut):
         mascota = self.buscarMascota(idMascota)
         if mascota is None:
             return "El Cliente no existe, no puedes modificarlo."
@@ -56,6 +56,8 @@ class MascotaDTO:
             mascota.setEdad(edad)
         if tipoMascota != '':
             mascota.setTipoMascota(tipoMascota)
+        if rut != '':
+            mascota.setCliente(rut)
         resultado = daoMascota.updateMascota(mascota)
         return resultado
     

@@ -19,7 +19,9 @@ class Mascota:
         self.__edad = edad
     def setTipoMascota(self,tipoMascota):
         self.__tipoMascota = tipoMascota
-#Getters
+    def setCliente(self,rut):
+        self.__cliente = self.__cliente.buscarCliente(rut)
+        
     def getIdMascota(self):
         return self.__idMascota
     def getNombMascota(self):

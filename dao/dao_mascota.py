@@ -82,13 +82,21 @@ class MascotaDAO():
         return mensaje
 
     def updateMascota(self, mascota):
-        sql = "update MASCOTAS set NOMBREMASCOTA = %s, IDTIPO = %s, EDADMASCOTA = %s where IDMASCOTA = %s"
+        cliente = "select IDCLIENTE from CLIENTE WHERE RUNCLIENTE = %s"
+        sql = "update MASCOTAS set NOMBREMASCOTA = %s, IDTIPO = %s, EDADMASCOTA = %s, IDCLIENTE = %s where IDMASCOTA = %s"
         c = self.getConex()
-        tipo_id = 1 if mascota.getTipoMascota().lower() == "perro" else 2
+        cur = c.getConex().cursor()
+        cur.execute(cliente,(mascota.getCliente(),))
+        result = cur.fetchone()
         mensaje = ""
+        if result is not None:
+            cliente_id = result[0]
+            tipo_id = 1 if mascota.getTipoMascota().lower() == "perro" else 2
+        else:
+            mensaje = "No se encontró el cliente en la base de datos."
         try:
             cursor = c.getConex().cursor()
-            cursor.execute(sql, (mascota.getNombMascota(),tipo_id,mascota.getEdad(),mascota.getIdMascota(),))
+            cursor.execute(sql, (mascota.getNombMascota(),tipo_id,mascota.getEdad(), cliente_id, mascota.getIdMascota(),))
             c.getConex().commit()
             filas = cursor.rowcount
             if filas > 0:
