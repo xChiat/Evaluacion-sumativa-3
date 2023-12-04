@@ -33,19 +33,19 @@ class MascotaDTO:
         else:
             return result
 
-    def addMascota(self, idMascota, nombre, edad, tipo, rut):
+    def agregarMascota(self, idMascota, nombre, edad, tipo, rut):
         daoMascota = MascotaDAO()
-        result = daoMascota.addMascota(Mascota(idMascota=idMascota,nombre=nombre, edad=edad, tipoMascota=tipo, cliente=Cliente(run=rut)))
+        result = daoMascota.agregarMascota(Mascota(idMascota=idMascota,nombre=nombre, edad=edad, tipoMascota=tipo, cliente=Cliente(run=rut)))
         self.syncListaMascota()
         return result
 
-    def delMascota(self, idMascota):
+    def eliminarMascota(self, idMascota):
         daoMasc = MascotaDAO()
-        resultado = daoMasc.delMascota(Mascota(idMascota=idMascota))
+        resultado = daoMasc.eliminarMascota(Mascota(idMascota=idMascota))
         self.syncListaMascota()
         return resultado
 
-    def updateMascota(self, idMascota,nombMascota,edad,tipoMascota,rut):
+    def modificarMacota(self, idMascota,nombMascota,edad,tipoMascota,rut):
         mascota = self.buscarMascota(idMascota)
         if mascota is None:
             return "El Cliente no existe, no puedes modificarlo."
@@ -58,6 +58,6 @@ class MascotaDTO:
             mascota.setTipoMascota(tipoMascota)
         if rut != '':
             mascota.setCliente(rut)
-        resultado = daoMascota.updateMascota(mascota)
+        resultado = daoMascota.modificarMacota(mascota)
         return resultado
     

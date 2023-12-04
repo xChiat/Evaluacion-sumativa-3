@@ -29,7 +29,7 @@ class MascotaDAO():
         return result
   
     
-    def addMascota(self,mascota):
+    def agregarMascota(self,mascota):
         cliente = "select IDCLIENTE from CLIENTE WHERE RUNCLIENTE = %s"
         sql = "insert into MASCOTAS (IDMASCOTA, NOMBREMASCOTA, EDADMASCOTA, IDTIPO, IDCLIENTE) values (%s,%s,%s,%s,%s)"
         c = self.getConex()
@@ -60,7 +60,7 @@ class MascotaDAO():
                 c.closeConex()
         return mensaje
     
-    def delMascota(self, mascota):
+    def eliminarMascota(self, mascota):
         sql = "delete from MASCOTAS where IDMASCOTA = %s"
         c = self.getConex()
         mensaje = ""
@@ -81,7 +81,7 @@ class MascotaDAO():
                 c.closeConex()
         return mensaje
 
-    def updateMascota(self, mascota):
+    def modificarMacota(self, mascota):
         cliente = "select IDCLIENTE from CLIENTE WHERE RUNCLIENTE = %s"
         sql = "update MASCOTAS set NOMBREMASCOTA = %s, IDTIPO = %s, EDADMASCOTA = %s, IDCLIENTE = %s where IDMASCOTA = %s"
         c = self.getConex()

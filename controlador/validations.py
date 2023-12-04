@@ -125,7 +125,7 @@ def validateBuscarMascota(idMascota):
     else:
         return result 
 
-def validateDelMascota():
+def validateEliminarMascota():
     print("\n--------------------")
     print("Eliminar Mascota.")
     print("--------------------\n")
@@ -138,15 +138,15 @@ def validateDelMascota():
         confirm = input("Presiona Y/y para Confirmar o N/n para Cancelar:")
         confirm = confirm.upper()
         if confirm == "Y":
-            result = MascotaDTO().delMascota(idMascota)
+            result = MascotaDTO().eliminarMascota(idMascota)
             return print(result)
         elif confirm == "N":
             return print("Operación Cancelada.")
         else:
             print("Opción invalida, intentalo nuevamente.")
-            return validateDelMascota()
+            return validateEliminarMascota()
 
-def validateAddMascota():
+def validateAgregarMascota():
     print("\n--------------------")
     print("Agregar Mascota.")
     print("--------------------\n")
@@ -167,10 +167,10 @@ def validateAddMascota():
             if not nombre or not edad or not tipo:
                 return print("Todos los campos son requeridos. Operación Cancelada.")
 
-            result = MascotaDTO().addMascota(idMascota, nombre, edad, tipo, run)
+            result = MascotaDTO().agregarMascota(idMascota, nombre, edad, tipo, run)
             print(result)
 
-def validateUpdateMascota():
+def validateModificarMacota():
     print("\n--------------------")
     print("Modificar Mascota.")
     print("--------------------\n")
@@ -190,12 +190,19 @@ def validateUpdateMascota():
         cliente_existente = validateBuscarCliente(run)
         if cliente_existente is not None:
             if nombre or edad or tipoMascota or run:
-                result = MascotaDTO().updateMascota(idMascota, nombre, edad, tipoMascota, run)
+                result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, run)
                 print(result)
             else:
                 print("Ningún campo ingresado para modificar.")
         else:
             print("El cliente no existe por lo tanto no puede ser el nuevo dueño.")
+            print("Solo seran modificados el resto de campos.")
+            if nombre or edad or tipoMascota:
+                result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, "")
+                print(result)
+            else:
+                print("Ningún campo ingresado para modificar.")
+            
 
 #-------- RECEPCIONISTA ---------
 
@@ -275,11 +282,11 @@ def inicial():
                     menuMascota()
                     opc = validaOpc(5)
                     if opc == 1:
-                        validateAddMascota()
+                        validateAgregarMascota()
                     elif opc == 2:
-                        validateUpdateMascota()
+                        validateModificarMacota()
                     elif opc == 3:
-                        validateDelMascota()
+                        validateEliminarMascota()
                     elif opc == 4:
                         validateFindAllMascotas()
                     else:
