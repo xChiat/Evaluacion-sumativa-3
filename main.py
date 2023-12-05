@@ -6,8 +6,8 @@ intentos = 1
 print("\n===  Veterinaria Patitas amadas ===\n")
 while intentos <= 3:
     try:
-        #result = autenticaRecepcionista()
-        result = 1
+        result = autenticaRecepcionista()
+        #result = 1
         if result is not None:
             print("-Acceso Permitido-")
             inicial()
