@@ -191,20 +191,23 @@ def validateModificarMacota():
     else:
         print(f"\nModificando datos de la mascota con ID: {idMascota}")
         print("Presiona Enter si no deseas modificar algún campo.")
-        nombre = str(input("Ingrese el nuevo Nombre de la Mascota: "))
-        edad = input("Ingrese la nueva Edad de la Mascota: ")
-        tipoMascota = input("Selecciona la opcion de tu tipo de Mascota 1: Perro  2:Gato")
-        run = str(input("Ingrese el RUN del nuevo dueño: "))
+        nombre = str(input("Ingrese el nuevo Nombre de la Mascota : "))
+        edad = input("Ingrese la nueva Edad de la Mascota : ")
+        tipoMascota = input("Selecciona la opcion de tu tipo de Mascota 1: Perro  2:Gato :")
+        run = str(input("Ingrese el RUN del nuevo dueño : "))
         cliente_existente = validateBuscarCliente(run)
-        if cliente_existente is not None and int(edad) or edad == "":
+        if cliente_existente is not None or run == "" and int(edad) or edad == "":
             if nombre or edad or tipoMascota or run:
-                if tipoMascota == 1 or tipoMascota == "":
+                if tipoMascota == "1":
                     perro = "Perro"
                     result = MascotaDTO().modificarMacota(idMascota, nombre, edad, perro, run)
                     print(result)
-                elif tipoMascota == 2 or tipoMascota == "":
+                elif tipoMascota == "2":
                     gato = "Gato"
                     result = MascotaDTO().modificarMacota(idMascota, nombre, edad, gato, run)
+                    print(result)
+                elif tipoMascota == "":
+                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, run)
                     print(result)
                 else:
                     return print("Escoja un tipo de Mascota Valido")
