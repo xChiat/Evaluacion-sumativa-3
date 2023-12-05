@@ -163,12 +163,20 @@ def validateAgregarMascota():
         else:
             nombre = validaStr("el Nombre de la Mascota")
             edad = validaInt("Edad de la Mascota")
-            tipo = validaStr("Tipo de Mascota (Perro o Gato)")
+            tipo = validaInt("Selecciona la opcion de tu tipo de Mascota 1: Perro  2:Gato")
             if not nombre or not edad or not tipo:
                 return print("Todos los campos son requeridos. Operación Cancelada.")
-
-            result = MascotaDTO().agregarMascota(idMascota, nombre, edad, tipo, run)
-            print(result)
+            else:
+                if tipo == 1:
+                    perro = "Perro"
+                    result = MascotaDTO().agregarMascota(idMascota, nombre, edad, perro, run)
+                    print(result)
+                elif tipo == 2:
+                    gato = "Gato"
+                    result = MascotaDTO().agregarMascota(idMascota, nombre, edad, gato, run)
+                    print(result)
+                else:
+                    return print("Escoja un tipo de Mascota Valido")
 
 def validateModificarMacota():
     print("\n--------------------")
@@ -183,15 +191,23 @@ def validateModificarMacota():
     else:
         print(f"\nModificando datos de la mascota con ID: {idMascota}")
         print("Presiona Enter si no deseas modificar algún campo.")
-        nombre = input("Ingrese el nuevo Nombre de la Mascota: ")
+        nombre = str(input("Ingrese el nuevo Nombre de la Mascota: "))
         edad = input("Ingrese la nueva Edad de la Mascota: ")
-        tipoMascota = input("Ingrese el nuevo Tipo de la Mascota (Perro o Gato): ")
-        run = input("Ingrese el RUN del nuevo dueño: ")
+        tipoMascota = input("Selecciona la opcion de tu tipo de Mascota 1: Perro  2:Gato")
+        run = str(input("Ingrese el RUN del nuevo dueño: "))
         cliente_existente = validateBuscarCliente(run)
-        if cliente_existente is not None:
+        if cliente_existente is not None and int(edad) or edad == "":
             if nombre or edad or tipoMascota or run:
-                result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, run)
-                print(result)
+                if tipoMascota == 1 or tipoMascota == "":
+                    perro = "Perro"
+                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, perro, run)
+                    print(result)
+                elif tipoMascota == 2 or tipoMascota == "":
+                    gato = "Gato"
+                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, gato, run)
+                    print(result)
+                else:
+                    return print("Escoja un tipo de Mascota Valido")
             else:
                 print("Ningún campo ingresado para modificar.")
         else:

@@ -42,9 +42,10 @@ class ClienteDTO:
     #Eliminar cliente
     def eliminarCliente(self, run):
         daoCli = ClienteDAO()
+        mascDto = MascotaDTO()
         resultado = daoCli.eliminarCliente(Cliente(run=run))
         self.syncListaCliente()
-        MascotaDTO.syncListaMascota()
+        mascDto.syncListaMascota()
         return resultado
     
     #Modificar cliente
