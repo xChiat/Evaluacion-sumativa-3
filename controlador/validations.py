@@ -196,31 +196,61 @@ def validateModificarMacota():
         tipoMascota = input("Selecciona la opcion de tu tipo de Mascota 1: Perro  2:Gato :")
         run = str(input("Ingrese el RUN del nuevo dueño : "))
         cliente_existente = validateBuscarCliente(run)
-        if cliente_existente is not None or run == "" and int(edad) or edad == "":
-            if nombre or edad or tipoMascota or run:
-                if tipoMascota == "1":
-                    perro = "Perro"
-                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, perro, run)
-                    print(result)
-                elif tipoMascota == "2":
-                    gato = "Gato"
-                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, gato, run)
-                    print(result)
-                elif tipoMascota == "":
-                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, run)
+        if edad != "":
+            edadmsc = validaInt(edad)
+            if cliente_existente is not None or run == "":
+                if nombre or edad or tipoMascota or run:
+                    if tipoMascota == "1":
+                        perro = "Perro"
+                        result = MascotaDTO().modificarMacota(idMascota, nombre, edadmsc, perro, run)
+                        print(result)
+                    elif tipoMascota == "2":
+                        gato = "Gato"
+                        result = MascotaDTO().modificarMacota(idMascota, nombre, edadmsc, gato, run)
+                        print(result)
+                    elif tipoMascota == "":
+                        result = MascotaDTO().modificarMacota(idMascota, nombre, edadmsc, tipoMascota, run)
+                        print(result)
+                    else:
+                        return print("Escoja un tipo de Mascota Valido")
+                else:
+                    print("Ningún campo ingresado para modificar.")
+            else:
+                print("El cliente no existe por lo tanto no puede ser el nuevo dueño.")
+                print("Solo seran modificados el resto de campos.")
+                if nombre or edad or tipoMascota:
+                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, "")
                     print(result)
                 else:
-                    return print("Escoja un tipo de Mascota Valido")
+                    print("Ningún campo ingresado para modificar.")
+        elif edad == "":
+            if cliente_existente is not None or run == "":
+                if nombre or edad or tipoMascota or run:
+                    if tipoMascota == "1":
+                        perro = "Perro"
+                        result = MascotaDTO().modificarMacota(idMascota, nombre, edad, perro, run)
+                        print(result)
+                    elif tipoMascota == "2":
+                        gato = "Gato"
+                        result = MascotaDTO().modificarMacota(idMascota, nombre, edad, gato, run)
+                        print(result)
+                    elif tipoMascota == "":
+                        result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, run)
+                        print(result)
+                    else:
+                        return print("Escoja un tipo de Mascota Valido")
+                else:
+                    print("Ningún campo ingresado para modificar.")
             else:
-                print("Ningún campo ingresado para modificar.")
+                print("El cliente no existe por lo tanto no puede ser el nuevo dueño.")
+                print("Solo seran modificados el resto de campos.")
+                if nombre or edad or tipoMascota:
+                    result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, "")
+                    print(result)
+                else:
+                    print("Ningún campo ingresado para modificar.")
         else:
-            print("El cliente no existe por lo tanto no puede ser el nuevo dueño.")
-            print("Solo seran modificados el resto de campos.")
-            if nombre or edad or tipoMascota:
-                result = MascotaDTO().modificarMacota(idMascota, nombre, edad, tipoMascota, "")
-                print(result)
-            else:
-                print("Ningún campo ingresado para modificar.")
+            print("Agrege una edad valida")
             
 
 #-------- RECEPCIONISTA ---------
