@@ -53,8 +53,26 @@ class ClienteDAO():
     
     #Elimina objeto de Cliente
     def eliminarCliente(self, cliente):
-        sql = "delete from CLIENTE where RUNCLIENTE = %s"
         c = self.getConex()
+        cli= "select IDCLIENTE from CLIENTE WHERE RUNCLIENTE = %s"
+        cur = c.getConex().cursor()
+        cur.execute(cli,(cliente.getRun(),))
+        result = cur.fetchone()
+        if result is not None:
+            cliente_id = result[0]
+        else:
+            mensaje = "No se encontró el cliente en la base de datos."
+        try:
+            msc = "delete from MASCOTAS where IDCLIENTE = %s"
+            cur.execute(msc, (cliente_id,))
+            c.getConex().commit()
+            filas = cur.rowcount
+            if filas > 0:
+                mensaje ="Datos de las mascotas eliminados satisfactoriamente"
+        except Exception as ex:
+            print(traceback.print_exc())
+            mensaje = "Problemas con la base de datos..vuelva a intentarlo"
+        sql = "delete from CLIENTE where RUNCLIENTE = %s"
         mensaje = ""
         try:
             cursor = c.getConex().cursor()

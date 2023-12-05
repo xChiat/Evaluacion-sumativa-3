@@ -1,5 +1,6 @@
 from modelo.cliente import Cliente
 from dao.dao_cliente import ClienteDAO
+from controlador.dto_mascota import MascotaDTO
 class ClienteDTO:
     def prepareCliente(self):
         daoCli = ClienteDAO()
@@ -43,6 +44,7 @@ class ClienteDTO:
         daoCli = ClienteDAO()
         resultado = daoCli.eliminarCliente(Cliente(run=run))
         self.syncListaCliente()
+        MascotaDTO.syncListaMascota()
         return resultado
     
     #Modificar cliente
